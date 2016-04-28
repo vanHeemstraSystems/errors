@@ -10,10 +10,10 @@ var ErrorValidationError = require(__dirname+'/validationerror.js');
 var self = this;
 
 /**
- * Create a new Error that let users create sub-error.
- * @return {Error}
+ * Create a new _Error that let users create sub-error.
+ * @return {_Error}
  */
-function Error() { 
+function _Error() { // Error is a reserved word in JavaScript, hence _Error
   /**
    * regular expressions used to determine which errors should be thrown
    */
@@ -21,19 +21,42 @@ function Error() {
   self._DUPLICATE_PRIMARY_KEY_REGEX = new RegExp('^Duplicate primary key `(.*)`.*');
 }
 
-Error.prototype.documentnotfoundregex = function() {
+_Error.prototype.documentnotfoundregex = function() {
   return self._DOCUMENT_NOT_FOUND_REGEX;
 }
 
-Error.prototype.duplicateprimarykeyregex = function() {
+_Error.prototype.duplicateprimarykeyregex = function() {
   return self._DUPLICATE_PRIMARY_KEY_REGEX;
+}
+
+/**
+ * Creates an appropriate error given either an instance of Error or a message
+ * from the RethinkDB driver
+ */
+_Error.prototype.create = function(errorOrMessage) {
+  var message = (errorOrMessage instanceof Error) ? errorOrMessage.message : errorOrMessage; // Error here referes to the JavaScript Error Object
+  //ORIGINAL if (message.match(errors.DOCUMENT_NOT_FOUND_REGEX)) {
+  if (message.match(self.documentnotfoundregex())) {
+    //ORIGINAL return new errors.DocumentNotFound(message);
+    return new self.documentnotfound(message);
+  //ORIGINAL } else if (message.match(errors.DUPLICATE_PRIMARY_KEY_REGEX)) {
+  } else if (message.match(self.dupliacteprimarykeyregex())) {
+    //ORIGINAL var primaryKey = message.match(errors.DUPLICATE_PRIMARY_KEY_REGEX)[1];
+    var primaryKey = message.match(self.duplicateprimarykeyregex())[1];
+    //ORIGINAL return new errors.DuplicatePrimaryKey(message, primaryKey);
+    return new self.duplicateprimarykey(message, primaryKey);
+  } else if (errorOrMessage instanceof Error) {
+    return errorOrMessage;
+  }
+  //ORIGINAL return new errors.MappingError(errorOrMessage); //WAS errors.ThinkyError(errorOrMessage);
+  return new ErrorMappingError(errorOrMessage);
 }
 
 /**
  * Create a new ErrorDocumentNotFound object.
  * @return {ErrorDocumentNotFound}
  */
-Error.prototype.documentnotfound = function() {
+_Error.prototype.documentnotfound = function() {
   return new ErrorDocumentNotFound();
 }
 
@@ -41,7 +64,7 @@ Error.prototype.documentnotfound = function() {
  * Create a new ErrorDuplicatePrimaryKey object.
  * @return {ErrorDuplicatePrimaryKey}
  */
-Error.prototype.duplicateprimarykey = function() {
+_Error.prototype.duplicateprimarykey = function() {
   return new ErrorDuplicatePrimaryKey();
 }
 
@@ -49,7 +72,7 @@ Error.prototype.duplicateprimarykey = function() {
  * Create a new ErrorInvalidWrite object.
  * @return {ErrorInvalidWrite}
  */
-Error.prototype.invalidwrite = function() {
+_Error.prototype.invalidwrite = function() {
   return new ErrorInvalidWrite();
 }
 
@@ -57,7 +80,7 @@ Error.prototype.invalidwrite = function() {
  * Create a new ErrorMappingError object.
  * @return {ErrorMappingError}
  */
-Error.prototype.mappingerror = function() {
+_Error.prototype.mappingerror = function() {
   return new ErrorMappingError();
 }
 
@@ -65,11 +88,11 @@ Error.prototype.mappingerror = function() {
  * Create a new ErrorValidationError object.
  * @return {ErrorValidationError}
  */
-Error.prototype.validationerror = function() {
+_Error.prototype.validationerror = function() {
   return new ErrorValidationError();
 }
 
-module.exports = Error;
+module.exports = _Error;
 
 
 /* IMPLEMENT BELOW CODE INTO INDIVIDUAL modules (e.g. DocumentNotFound.js) AND REFER TO THEM FROM HERE */
