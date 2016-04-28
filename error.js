@@ -2,4 +2,4 @@
 //
 //export default Error;
 
-module.error = require(__dirname+'/error/index.js');
+module.exports = require(__dirname+'/error/index.js');
