@@ -1,7 +1,9 @@
-"use strict";
+// ORIGINAL
+
+// "use strict";
 
 // var util = require('util');
-var errors = module.exports = {};
+// var errors = module.exports = {};
 
 // /**
  // * The base error that all Mapping (WAS thinky) related errors derive from
@@ -18,4 +20,23 @@ var errors = module.exports = {};
   // if (Error.captureStackTrace)
     // Error.captureStackTrace(this, this.constructor);
 // };
-// util.inherits(errors.MappingError, Error); //WAS util.inherits(errors.ThinkyError, Error);
+// util.inherits(errors.MappingError, Error); //WAS util.inherits(errors.ThinkyError, Error); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN index.js
+
+// NEW
+
+var self = this;
+
+/**
+ * Create a new MappingError that let users create sub-mappingerror.
+ * @return {MappingError}
+ */
+function MappingError() {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'MappingError';
+  this.message = tmp.message;
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor); 
+  } 
+}
+
+module.exports = MappingError;
