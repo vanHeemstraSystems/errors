@@ -14,7 +14,7 @@
   // errors.MappingError.call(this, errorMessage); //WAS errors.ThinkyError.call(this, errorMessage);
   // this.name = 'DocumentNotFoundError';
 // };
-// util.inherits(errors.DocumentNotFound, errors.MappingError);//WAS util.inherits(errors.DocumentNotFound, errors.ThinkyError); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN index.js
+// util.inherits(errors.DocumentNotFound, errors.MappingError);//WAS util.inherits(errors.DocumentNotFound, errors.ThinkyError); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN THE server
 
 
 // NEW

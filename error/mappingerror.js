@@ -20,7 +20,7 @@
   // if (Error.captureStackTrace)
     // Error.captureStackTrace(this, this.constructor);
 // };
-// util.inherits(errors.MappingError, Error); //WAS util.inherits(errors.ThinkyError, Error); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN index.js
+// util.inherits(errors.MappingError, Error); //WAS util.inherits(errors.ThinkyError, Error); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN THE server
 
 // NEW
 
@@ -40,3 +40,4 @@ function MappingError() {
 }
 
 module.exports = MappingError;
+ 

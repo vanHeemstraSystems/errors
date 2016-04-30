@@ -40,7 +40,7 @@ _Error.prototype.create = function(errorOrMessage) {
     //ORIGINAL return new errors.DocumentNotFound(message);
     return new self.documentnotfound(message);
   //ORIGINAL } else if (message.match(errors.DUPLICATE_PRIMARY_KEY_REGEX)) {
-  } else if (message.match(self.dupliacteprimarykeyregex())) {
+  } else if (message.match(self.duplicateprimarykeyregex())) {
     //ORIGINAL var primaryKey = message.match(errors.DUPLICATE_PRIMARY_KEY_REGEX)[1];
     var primaryKey = message.match(self.duplicateprimarykeyregex())[1];
     //ORIGINAL return new errors.DuplicatePrimaryKey(message, primaryKey);
@@ -99,6 +99,8 @@ module.exports = _Error;
 
 
 /* IMPLEMENT BELOW CODE INTO INDIVIDUAL modules (e.g. DocumentNotFound.js) AND REFER TO THEM FROM HERE */
+
+//         ------------------  DONE -----------------------
 
 // "use strict";
 

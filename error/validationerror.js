@@ -13,7 +13,7 @@
   // errors.MappingError.call(this, message); //WAS errors.ThinkyError.call(this, message);
   // this.name = 'ValidationError';
 // };
-// util.inherits(errors.ValidationError, errors.MappingError); //WAS util.inherits(errors.ValidationError, errors.ThinkyError); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN index.js
+// util.inherits(errors.ValidationError, errors.MappingError); //WAS util.inherits(errors.ValidationError, errors.ThinkyError); <= THIS WE STILL NEED TO IMPLEMENT, EITHER HERE OR BETTER IN THE server
 
 
 // NEW
