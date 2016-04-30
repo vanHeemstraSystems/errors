@@ -57,7 +57,10 @@ _Error.prototype.create = function(errorOrMessage) {
  * @return {ErrorDocumentNotFound}
  */
 _Error.prototype.documentnotfound = function() {
-  return new ErrorDocumentNotFound();
+  this._errorDocumentNotFound = new ErrorDocumentNotFound;
+  this._errorDocumentNotFound.setmappingerror(self.mappingerror());
+  //return new ErrorDocumentNotFound();
+  return this._errorDocumentNotFound();
 }
 
 /**
